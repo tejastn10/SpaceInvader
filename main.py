@@ -5,6 +5,7 @@ import random
 pygame.init()
 
 screen = pygame.display.set_mode((800, 600))
+background = pygame.image.load('assets/images/background.png')
 
 # Title and Icon
 pygame.display.set_caption("Space Invaders")
@@ -21,8 +22,8 @@ playerX_change = 0
 enemyImg = pygame.image.load('assets/images/enemy.png')
 enemyX = random.randint(0, 740)
 enemyY = random.randint(0, 100)
-enemyX_change = 0.3
-enemyY_change = 30
+enemyX_change = 2.2
+enemyY_change = 40
 
 
 def player(x, y):
@@ -37,6 +38,7 @@ running = True
 while running:
 
     screen.fill((0, 0, 0))
+    screen.blit(background, (0, 0))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -44,9 +46,9 @@ while running:
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerX_change = -0.2
+                playerX_change = -1.5
             if event.key == pygame.K_RIGHT:
-                playerX_change = 0.2
+                playerX_change = 1.5
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT or event.key == pygame.K_LEFT:
@@ -64,10 +66,10 @@ while running:
     enemyX += enemyX_change
 
     if enemyX <= 0:
-        enemyX_change = 0.3
+        enemyX_change = 2.2
         enemyY += enemyY_change
     elif enemyX >= 674:
-        enemyX_change = -0.3
+        enemyX_change = -2.2
         enemyY += enemyY_change
 
     player(playerX, playerY)
