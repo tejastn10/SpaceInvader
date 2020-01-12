@@ -25,6 +25,9 @@ font = pygame.font.Font('assets/fonts/TurretRoad.ttf', 32)
 textX = 10
 textY = 10
 
+# Game over text
+game_over_font = pygame.font.Font('assets/fonts/TurretRoad.ttf', 72)
+
 # Enemy
 enemyImg = []
 enemyX = []
@@ -77,6 +80,11 @@ def is_collision(enemyX, enemyY, bulletX, bulletY):
         return False
 
 
+def game_over():
+    over = game_over_font.render("GAME OVER!", True, (255, 255, 255))
+    screen.blit(over, (200, 250))
+
+
 running = True
 while running:
 
@@ -111,6 +119,13 @@ while running:
 
 # Enemy Movement
     for i in range(number_of_enemies):
+        # GAME OVER
+        if enemyY[i] > 350:
+            for j in range(number_of_enemies):
+                enemyY[j] = 2000
+            game_over()
+            break
+
         enemyX[i] += enemyX_change[i]
         if enemyX[i] <= 0:
             enemyX_change[i] = 2.2
