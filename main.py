@@ -18,7 +18,12 @@ playerImg = pygame.image.load('assets/images/player.png')
 playerX = 370
 playerY = 480
 playerX_change = 0
-score = 0
+
+# Score
+score_value = 0
+font = pygame.font.Font('assets/fonts/TurretRoad.ttf', 32)
+textX = 10
+textY = 10
 
 # Enemy
 enemyImg = []
@@ -30,7 +35,7 @@ number_of_enemies = 6
 
 for i in range(number_of_enemies):
     enemyImg.append(pygame.image.load('assets/images/enemy.png'))
-    enemyX.append(random.randint(0, 735))
+    enemyX.append(random.randint(0, 740))
     enemyY.append(random.randint(0, 100))
     enemyX_change.append(2.2)
     enemyY_change.append(40)
@@ -56,6 +61,11 @@ def fire_bullet(x, y):
     global bullet_state
     bullet_state = "fire"
     screen.blit(bulletImg, (x+16, y+10))
+
+
+def show_score(x, y):
+    score = font.render("Score:" + str(score_value), True, (255, 255, 255))
+    screen.blit(score, (x, y))
 
 
 def is_collision(enemyX, enemyY, bulletX, bulletY):
@@ -114,7 +124,7 @@ while running:
         if collision:
             bulletX = 480
             bullet_state = "ready"
-            score += 10
+            score_value += 10
             enemyX[i] = random.randint(0, 735)
             enemyY[i] = random.randint(0, 100)
 
@@ -129,4 +139,5 @@ while running:
         bulletY = 480
 
     player(playerX, playerY)
+    show_score(textX, textY)
     pygame.display.update()
