@@ -30,7 +30,7 @@ bulletImg = pygame.image.load('assets/images/bullet.png')
 bulletX = 0
 bulletY = 480
 bulletX_change = 0
-bulletY_change = 15
+bulletY_change = 4
 bullet_state = "ready"
 
 
@@ -92,6 +92,9 @@ while running:
     if bullet_state is "fire":
         fire_bullet(playerX, bulletY)
         bulletY -= bulletY_change
+    if bulletY <= 0:
+        bullet_state = "ready"
+        bulletY = 480
 
     player(playerX, playerY)
     enemy(enemyX, enemyY)
